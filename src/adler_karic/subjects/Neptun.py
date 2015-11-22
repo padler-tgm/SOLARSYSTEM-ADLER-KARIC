@@ -5,6 +5,8 @@ class Neptun(Planet):
     def __init__(self, x, y, z, description):
         Planet.__init__(self, x, y, z, description)
         self.orbit = render.attachNewNode('orbit_root_neptune')
+        self.dayscale = 16
+        self.yearscale = 164 * 365
         self.__init__texture()
 
     def __init__texture(self):

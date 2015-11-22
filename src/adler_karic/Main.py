@@ -17,8 +17,8 @@ sonne.setMoveBeharior(Rotation())
 sonne.performMove()
 
 merkur = Merkur(5.8, 0, 0, "mercury")
-merkur.setMoveBeharior(Rotation())
-sonne.setMoveBeharior(Translation())
+#merkur.setMoveBeharior(Rotation())
+merkur.setMoveBeharior(Translation())
 merkur.performMove()
 
 venus = Venus(10.8, 0, 0, "venus")
@@ -26,7 +26,7 @@ venus.setMoveBeharior(Rotation())
 venus.performMove()
 
 erde = Erde(15, 0, 0, "earth")
-erde.setMoveBeharior(Rotation())
+erde.setMoveBeharior(Translation())
 erde.performMove()
 
 mond = Mond(17, 0, 0, "moon")
