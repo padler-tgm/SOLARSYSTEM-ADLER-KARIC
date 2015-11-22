@@ -10,12 +10,15 @@ from subjects.Uranus import Uranus
 from subjects.Neptun import Neptun
 from behaviour.Rotation import Rotation
 #groesse ist volumen bei planeten
+from behaviour.Translation import Translation
+
 sonne = Sonne(0, 0, 0, "sun")
 sonne.setMoveBeharior(Rotation())
 sonne.performMove()
 
 merkur = Merkur(5.8, 0, 0, "mercury")
 merkur.setMoveBeharior(Rotation())
+sonne.setMoveBeharior(Translation())
 merkur.performMove()
 
 venus = Venus(10.8, 0, 0, "venus")

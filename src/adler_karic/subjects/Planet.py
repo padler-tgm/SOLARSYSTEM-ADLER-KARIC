@@ -6,14 +6,15 @@ from panda3d.core import NodePath
 from direct.gui.DirectGui import *
 import sys
 
+
 class Planet():
     def __init__(self, x, y, z, description):
         self.position = array('d', [x,y,z])
         self.size = None
         self.description = description
         self.orbit = None
-        self.orbit_rotation = None
-        self.day_rotation = None
+        self.rotation = None
+        self.translation = None
         self.dayscale = 60 / 365.0 * 5
         self.scale = 10
         self.texture = None
@@ -30,8 +31,7 @@ class Planet():
         self.sky = loader.loadModel("models/solar_sky_sphere")
         self.sky.reparentTo(render)
         self.sky.setScale(40)
-        self.sky_tex = loader.loadTexture("models/stars_1k_tex.jpg")
-        self.sky.setTexture(self.sky_tex, 1)
+        self.sky.setTexture(loader.loadTexture("models/stars_1k_tex.jpg"), 1)
 
     def performMove(self):
         if isinstance(self.move, Move):
@@ -50,7 +50,7 @@ class Planet():
     def setDependencie(self, planet):
         if isinstance(planet, Planet):
             self.orbit = (
-                planet.orbit.attachNewNode('orbit_root_'+self.description))
+                planet.orbit.attachNewNode('orbit_root_' + self.description))
 
     @abstractmethod
     def __init__texture(self):
