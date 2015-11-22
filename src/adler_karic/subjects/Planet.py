@@ -1,6 +1,6 @@
 from array import array
 from abc import ABCMeta, abstractmethod
-from adler_karic.behaviour import Move
+from behaviour.Move import Move
 import direct.directbase.DirectStart
 from panda3d.core import NodePath
 from direct.gui.DirectGui import *
@@ -12,9 +12,11 @@ class Planet():
         self.size = None
         self.description = description
         self.orbit = None
+        self.orbit_rotation = None
+        self.day_rotation = None
+        self.dayscale = 60 / 365.0 * 5
         self.scale = 0.5
         self.texture = None
-        self.abhplanet = None
         self.rspeed = None
         self.tspeed = None
         self.move = None
@@ -36,7 +38,7 @@ class Planet():
             self.move.update(self)
 
     def setMoveBeharior(self, move):
-        if isinstance(self.move, Move):
+        if isinstance(move, Move):
             self.move = move
 
     def setSpeed(self, rspeed, tspeed):
@@ -47,7 +49,7 @@ class Planet():
 
     def setDependencie(self, planet):
         if isinstance(planet, Planet):
-            self.abhplanet = (
+            self.orbit = (
                 planet.orbit.attachNewNode('orbit_root_'+self.description))
 
     @abstractmethod

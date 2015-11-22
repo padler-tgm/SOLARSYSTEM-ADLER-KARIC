@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from panda3d.core import Vec3, Vec4
 
 
 class Move:
