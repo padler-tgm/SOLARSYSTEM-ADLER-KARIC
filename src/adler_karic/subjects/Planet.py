@@ -4,10 +4,11 @@ from behaviour.Move import Move
 import direct.directbase.DirectStart
 from panda3d.core import NodePath
 from direct.gui.DirectGui import *
+from direct.showbase.DirectObject import DirectObject
 import sys
 
 
-class Planet():
+class Planet(DirectObject):
     def __init__(self, x, y, z, description):
         self.position = array('d', [x,y,z])
         self.size = None
@@ -26,12 +27,18 @@ class Planet():
         base.disableMouse()
         camera.setPos(0, 0, 45)
         camera.setHpr(0, -90, 0)
+        self.accept("escape", sys.exit)
+        self.accept("mouse1", self.mouseListen)
 
     def createSpace(self):
         self.sky = loader.loadModel("models/solar_sky_sphere")
         self.sky.reparentTo(render)
         self.sky.setScale(40)
         self.sky.setTexture(loader.loadTexture("models/stars_1k_tex.jpg"), 1)
+        self.listener.accept(self,)
+
+    def mouseListen(self):
+        print("hehe")
 
     def performMove(self):
         if isinstance(self.move, Move):
