@@ -8,14 +8,14 @@ import sys
 
 class Planet():
     def __init__(self, x, y, z, description):
-        self.position = array('i', [x,y,z])
+        self.position = array('d', [x,y,z])
         self.size = None
         self.description = description
         self.orbit = None
         self.orbit_rotation = None
         self.day_rotation = None
         self.dayscale = 60 / 365.0 * 5
-        self.scale = 0.5
+        self.scale = 10
         self.texture = None
         self.rspeed = None
         self.tspeed = None

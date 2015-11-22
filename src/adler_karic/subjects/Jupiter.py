@@ -12,4 +12,4 @@ class Jupiter(Planet):
         self.texture.reparentTo(render)
         self.texture.setTexture(loader.loadTexture("models/jupiter_1k_tex.jpg"), 1)
         self.texture.setPos(self.position[0], self.position[1], self.position[2])
-        self.texture.setScale(1 * self.scale)
+        self.texture.setScale(1/9.68 * self.scale)

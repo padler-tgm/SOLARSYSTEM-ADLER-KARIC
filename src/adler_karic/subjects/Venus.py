@@ -12,4 +12,4 @@ class Venus(Planet):
         self.texture.reparentTo(render)
         self.texture.setTexture(loader.loadTexture("models/venus_1k_tex.jpg"), 1)
         self.texture.setPos(self.position[0], self.position[1], self.position[2])
-        self.texture.setScale(0.6 * self.scale)
+        self.texture.setScale(1/113 * self.scale)
