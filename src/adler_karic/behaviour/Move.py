@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from subjects.Planet import *
 
 
 class Move:

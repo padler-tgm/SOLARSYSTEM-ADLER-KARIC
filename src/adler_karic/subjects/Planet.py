@@ -1,0 +1,55 @@
+from array import array
+from abc import ABCMeta, abstractmethod
+from adler_karic.behaviour import Move
+import direct.directbase.DirectStart
+from panda3d.core import NodePath
+from direct.gui.DirectGui import *
+import sys
+
+class Planet():
+    def __init__(self, x, y, z, description):
+        self.position = array('i', [x,y,z])
+        self.size = None
+        self.description = description
+        self.orbit = None
+        self.scale = 0.5
+        self.texture = None
+        self.abhplanet = None
+        self.rspeed = None
+        self.tspeed = None
+        self.move = None
+        self.zeit = None
+        base.setBackgroundColor(0, 0, 0)
+        base.disableMouse()
+        camera.setPos(0, 0, 45)
+        camera.setHpr(0, -90, 0)
+
+    def createSpace(self):
+        self.sky = loader.loadModel("models/solar_sky_sphere")
+        self.sky.reparentTo(render)
+        self.sky.setScale(40)
+        self.sky_tex = loader.loadTexture("models/stars_1k_tex.jpg")
+        self.sky.setTexture(self.sky_tex, 1)
+
+    def performMove(self):
+        if isinstance(self.move, Move):
+            self.move.update(self)
+
+    def setMoveBeharior(self, move):
+        if isinstance(self.move, Move):
+            self.move = move
+
+    def setSpeed(self, rspeed, tspeed):
+        if isinstance(rspeed, float):
+            self.rspeed = rspeed
+        if isinstance(tspeed, float):
+            self.tspeed = tspeed
+
+    def setDependencie(self, planet):
+        if isinstance(planet, Planet):
+            self.abhplanet = (
+                planet.orbit.attachNewNode('orbit_root_'+self.description))
+
+    @abstractmethod
+    def __init__texture(self):
+        raise NotImplementedError
