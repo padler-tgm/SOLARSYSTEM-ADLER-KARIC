@@ -5,6 +5,8 @@ class Jupiter(Planet):
     def __init__(self, x, y, z, description):
         Planet.__init__(self, x, y, z, description)
         self.orbit = render.attachNewNode('orbit_root_jupiter')
+        self.dayscale = 24
+        self.yearscale = 365
         self.__init__texture()
 
     def __init__texture(self):

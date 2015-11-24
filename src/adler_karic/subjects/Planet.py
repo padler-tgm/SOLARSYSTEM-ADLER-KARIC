@@ -11,18 +11,19 @@ import sys
 class Planet(DirectObject):
     def __init__(self, x, y, z, description):
         self.position = array('d', [x,y,z])
-        self.size = None
         self.description = description
         self.orbit = None
         self.rotation = None
         self.translation = None
         self.dayscale = 60 / 365.0 * 5
         self.scale = 1
+        self.dayscale = None #Stunden
+        self.yearscale = None #Tage
         self.texture = None
         self.rspeed = None
         self.tspeed = None
         self.move = None
-        self.zeit = None
+
         base.setBackgroundColor(0, 0, 0)
         base.disableMouse()
         camera.setPos(0, 0, 45)

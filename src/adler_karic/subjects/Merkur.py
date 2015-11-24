@@ -5,6 +5,8 @@ class Merkur(Planet):
     def __init__(self, x, y, z, description):
         Planet.__init__(self, x, y, z, description)
         self.orbit = render.attachNewNode('orbit_root_mercury')
+        self.dayscale = 24
+        self.yearscale = 687
         self.__init__texture()
 
     def __init__texture(self):
