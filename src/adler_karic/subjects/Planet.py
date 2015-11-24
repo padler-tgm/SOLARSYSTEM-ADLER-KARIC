@@ -16,9 +16,8 @@ class Planet(DirectObject):
         self.orbit = None
         self.rotation = None
         self.translation = None
-        self.dayscale = None #Stunden
-        self.yearscale = None #Tage
-        self.scale = 10
+        self.dayscale = 60 / 365.0 * 5
+        self.scale = 1
         self.texture = None
         self.rspeed = None
         self.tspeed = None
@@ -26,7 +25,7 @@ class Planet(DirectObject):
         self.zeit = None
         base.setBackgroundColor(0, 0, 0)
         base.disableMouse()
-        camera.setPos(0, 0, 50)
+        camera.setPos(0, 0, 45)
         camera.setHpr(0, -90, 0)
         self.accept("escape", sys.exit)
         self.accept("mouse1", self.mouseListen)
