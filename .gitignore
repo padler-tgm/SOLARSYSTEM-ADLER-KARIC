@@ -1,2 +1,7 @@
-src/adler_karic/*/*.pyc
-*.idea/workspace.xml
+src/adler_karic/behaviour/__init__.pyc
+
+*.pyc
+
+*.pyc
+
+*.xml

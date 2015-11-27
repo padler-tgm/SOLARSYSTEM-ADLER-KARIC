@@ -22,32 +22,33 @@ class Planet(DirectObject):
         self.texture = None
         self.rspeed = None
         self.tspeed = None
-        self.move = None
+        self.move = []
 
         base.setBackgroundColor(0, 0, 0)
-        base.disableMouse()
+        #base.disableMouse()
         camera.setPos(0, 0, 45)
         camera.setHpr(0, -90, 0)
-        self.accept("escape", sys.exit)
-        self.accept("mouse1", self.mouseListen)
+        self.createSpace()
+        #self.accept("escape", sys.exit)
+        #self.accept("mouse1", self.mouseListen)
 
     def createSpace(self):
         self.sky = loader.loadModel("models/solar_sky_sphere")
         self.sky.reparentTo(render)
         self.sky.setScale(40)
         self.sky.setTexture(loader.loadTexture("models/stars_1k_tex.jpg"), 1)
-        self.listener.accept(self,)
+#        self.listener.accept(self,)
 
     def mouseListen(self):
         print("hehe")
 
     def performMove(self):
-        if isinstance(self.move, Move):
-            self.move.update(self)
+            for m in self.move:
+                m.update(self)
 
     def setMoveBeharior(self, move):
         if isinstance(move, Move):
-            self.move = move
+            self.move.append(move)
 
     def setSpeed(self, rspeed, tspeed):
         if isinstance(rspeed, float):
