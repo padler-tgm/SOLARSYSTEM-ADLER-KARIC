@@ -15,3 +15,6 @@ class Saturn(Planet):
         self.texture.setTexture(loader.loadTexture("models/saturn_1k_tex.jpg"), 1)
         self.texture.setPos(self.position[0], self.position[1], self.position[2])
         self.texture.setScale(1.5 * self.scale)
+
+    def chooseTexture(self):
+        self.texture.setTexture(loader.loadTexture("models/saturn_1k_tex.jpg"), 1)

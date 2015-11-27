@@ -15,3 +15,5 @@ class Mars(Planet):
         self.texture.setTexture(loader.loadTexture("models/mars_1k_tex.jpg"), 1)
         self.texture.setPos(self.position[0], self.position[1], self.position[2])
         self.texture.setScale( self.scale)
+    def chooseTexture(self):
+        self.texture.setTexture(loader.loadTexture("models/mars_1k_tex.jpg"), 1)
