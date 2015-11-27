@@ -15,7 +15,6 @@ class Planet(DirectObject):
         self.orbit = None
         self.rotation = None
         self.translation = None
-        self.dayscale = 60 / 365.0 * 5
         self.scale = 1
         self.dayscale = None #Stunden
         self.yearscale = None #Tage
@@ -28,19 +27,43 @@ class Planet(DirectObject):
         #base.disableMouse()
         camera.setPos(0, 0, 45)
         camera.setHpr(0, -90, 0)
+<<<<<<< HEAD
         self.createSpace()
         #self.accept("escape", sys.exit)
         #self.accept("mouse1", self.mouseListen)
+=======
+        self.accept("h",sys.exit) # help mit kommandos wird angezeigt (label)
+        self.accept("escape", sys.exit) # programm wird beendet
+        self.accept("t",sys.exit) #textur an/aus
+        self.accept("mouse2",sys.exit) #punktlichtwuelle setzen
+        self.accept("wheel_up",sys.exit) # animation wird schneller
+        self.accept("wheel-down",sys.exit) # animation wird langsamer
+        self.accept("s",sys.exit)# animation stoppen und wieder startet
+        self.accept("mouse1", self.mouseListen) # im raum bewegen (maus halten)
+        self.accept("control-mouse1", self.mouseListen)
+        """self.accept("s",self.speed("s"))
+        self.accept("f",self.speed("f"))"""
+>>>>>>> 85f4d614e9354e908f0d29687e266c464fde26ae
 
     def createSpace(self):
         self.sky = loader.loadModel("models/solar_sky_sphere")
         self.sky.reparentTo(render)
         self.sky.setScale(40)
         self.sky.setTexture(loader.loadTexture("models/stars_1k_tex.jpg"), 1)
+<<<<<<< HEAD
 #        self.listener.accept(self,)
+=======
+
+>>>>>>> 85f4d614e9354e908f0d29687e266c464fde26ae
 
     def mouseListen(self):
         print("hehe")
+
+    """def speed(self,str):
+        if(str == "s"):
+            print("gg")
+        else:
+            print("hh") """
 
     def performMove(self):
             for m in self.move:
