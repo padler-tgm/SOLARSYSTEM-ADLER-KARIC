@@ -7,8 +7,6 @@ class Erde(Planet):
         self.orbit = render.attachNewNode('orbit_root_earth')
         self.dayscale = 24
         self.yearscale = 365
-        self.rspeed = 1.0
-        self.tspeed = 1.0
         self.__init__texture()
 
     def __init__texture(self):
@@ -20,10 +18,3 @@ class Erde(Planet):
 
     def chooseTexture(self):
         self.texture.setTexture(loader.loadTexture("models/earth_1k_tex.jpg"), 1)
-
-    def setSpeed(self, rspeed, tspeed):
-        if isinstance(rspeed, float):
-            self.rspeed = rspeed
-        if isinstance(tspeed, float):
-            self.tspeed = tspeed
-        self.performMove()
