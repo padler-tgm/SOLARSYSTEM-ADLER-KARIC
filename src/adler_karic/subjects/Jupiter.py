@@ -19,10 +19,3 @@ class Jupiter(Planet):
     def chooseTexture(self):
         self.texture.setTexture(loader.loadTexture("models/jupiter_1k_tex.jpg"), 1)
 
-
-    def setSpeed(self, rspeed, tspeed):
-        if isinstance(rspeed, float):
-            self.rspeed = rspeed
-        if isinstance(tspeed, float):
-            self.tspeed = tspeed
-        self.performMove()
