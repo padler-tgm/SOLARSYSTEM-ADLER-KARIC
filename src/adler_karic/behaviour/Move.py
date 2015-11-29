@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from panda3d.core import Vec3, Vec4
+from direct.interval.IntervalGlobal import *
 
 
 class Move:

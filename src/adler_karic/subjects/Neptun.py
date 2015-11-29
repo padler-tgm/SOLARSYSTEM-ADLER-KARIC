@@ -7,6 +7,8 @@ class Neptun(Planet):
         self.orbit = render.attachNewNode('orbit_root_neptune')
         self.dayscale = 24
         self.yearscale = 687
+        self.rspeed = 1.0
+        self.tspeed = 1.0
         self.__init__texture()
 
     def __init__texture(self):
@@ -15,6 +17,13 @@ class Neptun(Planet):
         self.texture.setTexture(loader.loadTexture("models/neptune_1k_tex.jpg"), 1)
         self.texture.setPos(self.position[0], self.position[1], self.position[2])
         self.texture.setScale(1.5 * self.scale)
+
     def chooseTexture(self):
         self.texture.setTexture(loader.loadTexture("models/neptune_1k_tex.jpg"), 1)
 
+
+    def setSpeed(self, rspeed, tspeed):
+        if isinstance(rspeed, float):
+            self.rspeed = rspeed
+        if isinstance(tspeed, float):
+            self.tspeed = tspeed

@@ -6,31 +6,34 @@ from panda3d.core import NodePath, TextNode, PointLight, VBase4
 from direct.gui.DirectGui import *
 from direct.showbase.DirectObject import DirectObject
 import sys
+from direct.task import Task
+from math import pi, sin, cos
 
 
 class Planet(DirectObject):
     def __init__(self, x, y, z, description):
-        self.position = array('d', [x,y,z])
+        self.position = array('d', [x, y, z])
         self.description = description
         self.orbit = None
         self.rotation = None
         self.translation = None
         self.scale = 1
-        self.dayscale = None #Stunden
-        self.yearscale = None #Tage
+        self.dayscale = None  # Stunden
+        self.yearscale = None  # Tage
         self.texture = None
-        self.rspeed = None
-        self.tspeed = None
         self.h = False
         self.text = "Kamera: Maus\nAnimation start/stop: s\nAnimation schneller/langsamer: Mausrad rauf/runter\nTextur an/aus: t\nPunktlichtquelle setzen: Rechtsklick\nBeenden: Esc"
         self.tt = None
         self.t = True
         self.light = False
         self.plnp = None
-
+        self.rspeed = 1.0
+        self.tspeed = 1.0
         self.move = []
 
+
         base.setBackgroundColor(0, 0, 0)
+        base.useDrive()
         #base.disableMouse()
         camera.setPos(0, 0, 45)
         camera.setHpr(0, -90, 0)
@@ -40,12 +43,16 @@ class Planet(DirectObject):
         self.accept("h", self.showHelp) # help mit kommandos wird angezeigt (label)
         self.accept("escape", sys.exit) # programm wird beendet
         self.accept("t",self.texturAnAus) #textur an/aus
-        self.accept("mouse1",self.changeLight) #punktlichtwuelle setzen
+        self.accept("control-mouse1",self.changeLight) #punktlichtwuelle setzen
         self.accept("wheel_up",sys.exit) # animation wird schneller
         self.accept("wheel-down",sys.exit) # animation wird langsamer
         self.accept("s",sys.exit)# animation stoppen und wieder startet
         #self.accept("mouse1", self.mouseListen) # im raum bewegen (maus halten)
-        self.accept("control-mouse1", self.mouseListen)
+        self.accept("space", self.startstop)  # animation stoppen und wieder startet
+        self.accept("mouse1", self.mouseListen) # im raum bewegen (maus halten)
+        self.accept("a", self.camerapositionleftright)  # animation wird schneller
+        self.accept("d", self.camerapositionleftright)  # animation wird langsamer
+        #self.accept("control-mouse1", self.mouseListen)
         """self.accept("s",self.speed("s"))
         self.accept("f",self.speed("f"))"""
 
@@ -99,30 +106,43 @@ class Planet(DirectObject):
             print("hh") """
 
     def performMove(self):
-            for m in self.move:
-                m.update(self)
+        for m in self.move:
+            m.update(self)
 
     def setMoveBeharior(self, move):
         if isinstance(move, Move):
             self.move.append(move)
 
-    def setSpeed(self, rspeed, tspeed):
-        if isinstance(rspeed, float):
-            self.rspeed = rspeed
-        if isinstance(tspeed, float):
-            self.tspeed = tspeed
-
-    def setDependencie(self, planet):
-        if isinstance(planet, Planet):
-            self.orbit = (
-                planet.orbit.attachNewNode('orbit_root_' + self.description))
-
     @abstractmethod
     def __init__texture(self):
         raise NotImplementedError
 
-"""
-    @abstractmethod
-    def chooseTexture(self):
+    def startstop(self):
+        self.toggleInterval(self.rotation)
+        if self.translation: self.toggleInterval(self.translation)
 
-        raise NotImplementedError """
+    def toggleInterval(self, interval):
+        if interval.isPlaying(): interval.pause()
+        else: interval.resume()
+
+    def speedup(self):
+        self.setSpeed(self.rspeed/1000000, self.tspeed/1000000)
+
+    def speeddown(self):
+        pass
+
+    def camerapositionleftright(self):
+        angleDegrees = self.scale * 6.0
+        angleRadians = angleDegrees * (pi / 180.0)
+        camera.setPos(20 * sin(angleRadians), -20.0 * cos(angleRadians), 3)
+        camera.setHpr(angleDegrees, 0, 0)
+        camera.lookAt(0,0,0)
+        self.scale = self.scale + 1
+
+
+    def cameraposition(self):
+        pass
+        #self.texture.setPos(0,42,0)
+        #base.cam.reparentTo(render)
+        #base.cam.setPos(30,-45,26)
+        #base.cam.lookAt(0,0,0)

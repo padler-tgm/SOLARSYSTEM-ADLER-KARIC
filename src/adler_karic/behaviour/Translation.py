@@ -3,4 +3,9 @@ from Move import *
 
 class Translation(Move):
     def update(self, planet):
-        planet.orbit.hprInterval(planet.yearscale, Vec3(360, 0, 0)).loop()
+        print(planet.tspeed)
+        planet.translation = planet.orbit.hprInterval(planet.yearscale*planet.tspeed, Vec3(360, 0, 0))
+        planet.translation.loop()
+
+
+
