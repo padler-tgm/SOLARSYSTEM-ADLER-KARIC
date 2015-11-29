@@ -11,11 +11,7 @@ from subjects.Neptun import Neptun
 from behaviour.Rotation import Rotation
 #groesse ist volumen bei planeten
 from behaviour.Translation import Translation
-from listener.Listener import Listener
-from subjects.Space import Space
 
-Space().createSpace()
-Listener().showHelp()
 sonne = Sonne(0, 0, 0, "sun")
 sonne.setMoveBeharior(Rotation())
 sonne.performMove()
