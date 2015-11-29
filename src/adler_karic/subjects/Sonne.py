@@ -17,8 +17,7 @@ class Sonne(Planet):
         """
         Planet.__init__(self, x, y, z, description)
         self.orbit = render.attachNewNode('orbit_root_sun')
-        self.dayscale = 24
-        self.rspeed = 1.0
+        self.dayscale = 25 * 24
         self.tspeed = 0
         self.__init__texture()
 
@@ -37,15 +36,3 @@ class Sonne(Planet):
         Methode zum Setzen der Ursprungstextur
         """
         self.texture.setTexture(loader.loadTexture("models/sun_1k_tex.jpg"), 1)
-
-    def setSpeed(self, rspeed, tspeed):
-        """
-        Methode zum Setzen der Geschwindigkeit der Planeten
-        :param rspeed: rotationsgeschwindigkeit
-        :param tspeed: fortbewegungsgeschwindigkeit
-        """
-        if isinstance(rspeed, float):
-            self.rspeed = rspeed
-        if isinstance(tspeed, float):
-            self.tspeed = tspeed
-        self.performMove()

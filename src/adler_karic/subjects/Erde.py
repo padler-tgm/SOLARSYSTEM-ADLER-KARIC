@@ -19,8 +19,6 @@ class Erde(Planet):
         self.orbit = render.attachNewNode('orbit_root_earth')
         self.dayscale = 24
         self.yearscale = 365
-        self.rspeed = 1.0
-        self.tspeed = 1.0
         self.__init__texture()
 
     def __init__texture(self):
@@ -28,8 +26,8 @@ class Erde(Planet):
         Methode bei der die Textur initialisert wird
         """
         self.texture = loader.loadModel("models/planet_sphere")
-        self.texture.reparentTo(self.orbit)
         self.chooseTexture()
+        self.texture.reparentTo(self.orbit)
         self.texture.setPos(self.position[0], self.position[1], self.position[2])
         self.texture.setScale(self.scale)
 
@@ -39,14 +37,3 @@ class Erde(Planet):
         """
         self.texture.setTexture(loader.loadTexture("models/earth_1k_tex.jpg"), 1)
 
-    def setSpeed(self, rspeed, tspeed):
-        """
-        Methode zum Setzen der Geschwindigkeit der Planeten
-        :param rspeed: rotationsgeschwindigkeit
-        :param tspeed: fortbewegungsgeschwindigkeit
-        """
-        if isinstance(rspeed, float):
-            self.rspeed = rspeed
-        if isinstance(tspeed, float):
-            self.tspeed = tspeed
-        self.performMove()

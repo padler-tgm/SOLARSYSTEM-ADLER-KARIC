@@ -17,8 +17,8 @@ class Jupiter(Planet):
         """
         Planet.__init__(self, x, y, z, description)
         self.orbit = render.attachNewNode('orbit_root_jupiter')
-        self.dayscale = 24
-        self.yearscale = 365
+        self.dayscale = 10
+        self.yearscale = 11 * 365 + 315
         self.__init__texture()
 
     def __init__texture(self):
@@ -36,16 +36,3 @@ class Jupiter(Planet):
         Methode zum Setzen der Ursprungstextur
         """
         self.texture.setTexture(loader.loadTexture("models/jupiter_1k_tex.jpg"), 1)
-
-
-    def setSpeed(self, rspeed, tspeed):
-        """
-        Methode zum Setzen der Geschwindigkeit der Planeten
-        :param rspeed: rotationsgeschwindigkeit
-        :param tspeed: fortbewegungsgeschwindigkeit
-        """
-        if isinstance(rspeed, float):
-            self.rspeed = rspeed
-        if isinstance(tspeed, float):
-            self.tspeed = tspeed
-        self.performMove()

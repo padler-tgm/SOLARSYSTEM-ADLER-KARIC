@@ -20,8 +20,6 @@ class Mars(Planet):
         #ein Tag hat 24 Stunden ..
         self.dayscale = 24
         self.yearscale = 687
-        self.rspeed = 1.0
-        self.tspeed = 1.0
         #Textur wird initialisiert
         self.__init__texture()
 
@@ -40,15 +38,3 @@ class Mars(Planet):
         Methode zum Setzen der Ursprungstextur
         """
         self.texture.setTexture(loader.loadTexture("models/mars_1k_tex.jpg"), 1)
-
-    def setSpeed(self, rspeed, tspeed):
-        """
-        Methode zum Setzen der Geschwindigkeit der Planeten
-        :param rspeed: rotationsgeschwindigkeit
-        :param tspeed: fortbewegungsgeschwindigkeit
-        """
-        if isinstance(rspeed, float):
-            self.rspeed = rspeed
-        if isinstance(tspeed, float):
-            self.tspeed = tspeed
-        self.performMove()

@@ -17,10 +17,8 @@ class Venus(Planet):
         """
         Planet.__init__(self, x, y, z, description)
         self.orbit = render.attachNewNode('orbit_root_venus')
-        self.dayscale = 24
-        self.yearscale = 687
-        self.rspeed = 1.0
-        self.tspeed = 1.0
+        self.dayscale = 24 * 243
+        self.yearscale = 225
         self.__init__texture()
 
     def __init__texture(self):
@@ -38,15 +36,3 @@ class Venus(Planet):
         Methode zum Setzen der Ursprungstextur
         """
         self.texture.setTexture(loader.loadTexture("models/venus_1k_tex.jpg"), 1)
-
-    def setSpeed(self, rspeed, tspeed):
-        """
-        Methode zum Setzen der Geschwindigkeit der Planeten
-        :param rspeed: rotationsgeschwindigkeit
-        :param tspeed: fortbewegungsgeschwindigkeit
-        """
-        if isinstance(rspeed, float):
-            self.rspeed = rspeed
-        if isinstance(tspeed, float):
-            self.tspeed = tspeed
-        self.performMove()
