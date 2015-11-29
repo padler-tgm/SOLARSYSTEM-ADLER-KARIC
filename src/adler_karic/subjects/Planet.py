@@ -25,8 +25,8 @@ class Planet(DirectObject):
         self.text = "Kamera: Maus\nAnimation start/stop: s\nAnimation schneller/langsamer: Mausrad rauf/runter\nTextur an/aus: t\nPunktlichtquelle setzen: Rechtsklick\nBeenden: Esc"
         self.tt = None
         self.t = True
+        self.light = False
         self.plnp = None
-        self.mw = base.mouseWatcherNode
 
         self.move = []
 
@@ -40,11 +40,11 @@ class Planet(DirectObject):
         self.accept("h", self.showHelp) # help mit kommandos wird angezeigt (label)
         self.accept("escape", sys.exit) # programm wird beendet
         self.accept("t",self.texturAnAus) #textur an/aus
-        self.accept("p",self.changeLight) #punktlichtwuelle setzen
+        self.accept("mouse1",self.changeLight) #punktlichtwuelle setzen
         self.accept("wheel_up",sys.exit) # animation wird schneller
         self.accept("wheel-down",sys.exit) # animation wird langsamer
         self.accept("s",sys.exit)# animation stoppen und wieder startet
-        self.accept("mouse1", self.mouseListen) # im raum bewegen (maus halten)
+        #self.accept("mouse1", self.mouseListen) # im raum bewegen (maus halten)
         self.accept("control-mouse1", self.mouseListen)
         """self.accept("s",self.speed("s"))
         self.accept("f",self.speed("f"))"""
@@ -56,14 +56,22 @@ class Planet(DirectObject):
         self.sky.setTexture(loader.loadTexture("models/stars_1k_tex.jpg"), 1)
         plight = PointLight('plight')
         plight.setColor(VBase4(0.8, 0.8, 0.8, 1))
-        plnp = render.attachNewNode(plight)
-        plnp.setPos(0, 0, 0)
-        render.setLight(plnp)
+        self.plnp = render.attachNewNode(plight)
+        self.plnp.setPos(0, 0, 0)
+        render.setLight(self.plnp)
+
 
 
     def changeLight(self):
-        print(self.mw.getMouseX())
-        self.plnp.setPos(self.mw.getMouseX(),self.mw.getMouseY(),50)
+        print("Hhhhh")
+        if(self.light == True):
+            self.light=False
+            render.clearLight(self.plnp)
+        else:
+            self.light=True
+            render.setLight(self.plnp)
+
+
 
     def showHelp(self):
         if(self.h == True):
