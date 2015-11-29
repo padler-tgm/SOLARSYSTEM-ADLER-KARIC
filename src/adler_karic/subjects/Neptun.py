@@ -17,3 +17,4 @@ class Neptun(Planet):
         self.texture.setScale(1.5 * self.scale)
     def chooseTexture(self):
         self.texture.setTexture(loader.loadTexture("models/neptune_1k_tex.jpg"), 1)
+

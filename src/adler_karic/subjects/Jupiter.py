@@ -17,3 +17,4 @@ class Jupiter(Planet):
         self.texture.setScale(1.5 * self.scale)
     def chooseTexture(self):
         self.texture.setTexture(loader.loadTexture("models/jupiter_1k_tex.jpg"), 1)
+

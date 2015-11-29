@@ -18,3 +18,4 @@ class Saturn(Planet):
 
     def chooseTexture(self):
         self.texture.setTexture(loader.loadTexture("models/saturn_1k_tex.jpg"), 1)
+

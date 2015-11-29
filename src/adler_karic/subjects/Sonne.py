@@ -18,3 +18,4 @@ class Sonne(Planet):
 
     def chooseTexture(self):
         self.texture.setTexture(loader.loadTexture("models/sun_1k_tex.jpg"), 1)
+

@@ -17,3 +17,4 @@ class Merkur(Planet):
         self.texture.setScale(self.scale)
     def chooseTexture(self):
         self.texture.setTexture(loader.loadTexture("models/mercury_1k_tex.jpg"), 1)
+
