@@ -23,11 +23,7 @@ class Erde(Planet):
 
     def setSpeed(self, rspeed, tspeed):
         if isinstance(rspeed, float):
-            print("A")
-            print(Planet.rspeed)
-            print(rspeed)
-            Planet.rspeed = rspeed
-            print(self.rspeed)
+            self.rspeed = rspeed
         if isinstance(tspeed, float):
-            print("B")
-            Planet.tspeed = tspeed
+            self.tspeed = tspeed
+        self.performMove()

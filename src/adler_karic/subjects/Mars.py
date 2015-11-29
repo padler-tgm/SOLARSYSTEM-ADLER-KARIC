@@ -26,3 +26,4 @@ class Mars(Planet):
             self.rspeed = rspeed
         if isinstance(tspeed, float):
             self.tspeed = tspeed
+        self.performMove()

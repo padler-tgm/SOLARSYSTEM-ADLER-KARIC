@@ -44,12 +44,12 @@ class Planet(DirectObject):
         self.accept("escape", sys.exit) # programm wird beendet
         self.accept("t",self.texturAnAus) #textur an/aus
         self.accept("control-mouse1",self.changeLight) #punktlichtwuelle setzen
-        self.accept("wheel_up",sys.exit) # animation wird schneller
-        self.accept("wheel-down",sys.exit) # animation wird langsamer
-        self.accept("s",sys.exit)# animation stoppen und wieder startet
+        self.accept("wheel_up",self.speedup) # animation wird schneller
+        self.accept("wheel_down",self.speeddown) # animation wird langsamer
+        self.accept("space",sys.exit)# animation stoppen und wieder startet
         #self.accept("mouse1", self.mouseListen) # im raum bewegen (maus halten)
         self.accept("space", self.startstop)  # animation stoppen und wieder startet
-        self.accept("mouse1", self.mouseListen) # im raum bewegen (maus halten)
+        #self.accept("mouse1", self.mouseListen) # im raum bewegen (maus halten)
         self.accept("a", self.camerapositionleftright)  # animation wird schneller
         self.accept("d", self.camerapositionleftright)  # animation wird langsamer
         #self.accept("control-mouse1", self.mouseListen)
@@ -96,6 +96,7 @@ class Planet(DirectObject):
         else:
             self.t = True
             self.chooseTexture()
+
     def mouseListen(self):
         print("hehe")
 
@@ -126,10 +127,12 @@ class Planet(DirectObject):
         else: interval.resume()
 
     def speedup(self):
-        self.setSpeed(self.rspeed/1000000, self.tspeed/1000000)
+        if(self.rspeed > 0.001):
+            self.setSpeed(self.rspeed/10, self.tspeed/10)
 
     def speeddown(self):
-        pass
+        if(self.rspeed < 1):
+            self.setSpeed(self.rspeed*10, self.tspeed*10)
 
     def camerapositionleftright(self):
         angleDegrees = self.scale * 6.0

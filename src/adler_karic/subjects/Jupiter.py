@@ -25,3 +25,4 @@ class Jupiter(Planet):
             self.rspeed = rspeed
         if isinstance(tspeed, float):
             self.tspeed = tspeed
+        self.performMove()
