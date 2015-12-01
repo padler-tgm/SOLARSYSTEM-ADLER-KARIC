@@ -1,5 +1,5 @@
 import direct.directbase.DirectStart
-from panda3d.core import NodePath, TextNode, PointLight, VBase4
+from panda3d.core import NodePath, TextNode, PointLight, VBase4, Point3
 from direct.gui.DirectGui import *
 from direct.showbase.DirectObject import DirectObject
 
@@ -19,7 +19,7 @@ class Space:
         self.sky.setScale(40)
         self.sky.setTexture(loader.loadTexture("models/stars_1k_tex.jpg"), 1)
 
-    def pointlight(self):
+    def pointlight(self, x,y,z):
         """
         Erzeugt einen Schatten, je nach Position der Sonne
         :return: die Schattierung des Planeten
@@ -27,5 +27,5 @@ class Space:
         plight = PointLight('plight')
         plight.setColor(VBase4(0.8, 0.8, 0.8, 1))
         plnp = render.attachNewNode(plight)
-        plnp.setPos(0, 0, 0)
+        plnp.setPos(x, y, z)
         return plnp

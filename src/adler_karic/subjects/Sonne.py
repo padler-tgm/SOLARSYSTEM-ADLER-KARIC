@@ -1,4 +1,5 @@
 from Planet import Planet
+from panda3d.core import Material
 __author__ = 'Philipp Adler'
 __author__ = 'Adin Karic'
 __version__ = '2015-11-29'
@@ -29,7 +30,10 @@ class Sonne(Planet):
         self.texture.reparentTo(self.orbit)
         self.chooseTexture()
         self.texture.setPos(self.position[0], self.position[1], self.position[2])
-        self.texture.setScale(2.5*self.scale)
+        self.texture.setScale(2.5*self.scale, 2.5*self.scale, 2.5*self.scale)
+        myMaterial = Material()
+        myMaterial.setEmission((1,1,1,1)) #Make this material shiny
+        self.texture.setMaterial(myMaterial) #Apply the material to this nodePath
 
     def chooseTexture(self):
         """

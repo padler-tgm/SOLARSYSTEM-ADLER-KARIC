@@ -40,13 +40,16 @@ class Planet(DirectObject):
         self.tt = None
         self.t = True
         self.light = False
-        self.plnp = None
+        self.plnp = []
 
         base.setBackgroundColor(0, 0, 0)#schwarter Hintergrund
         base.useDrive()#Mouselistener
+        #base.oobe()
         camera.setPos(0, 0, 45)#Kameraposition
         camera.setHpr(0, -90, 0)#Kameraausrichtung
-        self.plnp = Space().pointlight()
+        shadow = [[1.25, 1.25, 1.25]]
+        for s in shadow:
+            self.plnp.append(Space().pointlight(s[0],s[1],s[2]))
         self.showHelp()
         #Listener
         self.accept("h", self.showHelp) # help mit kommandos wird angezeigt (label)
@@ -63,10 +66,12 @@ class Planet(DirectObject):
         """
         if(self.light == True):
             self.light=False
-            render.clearLight(self.plnp)
+            for p in self.plnp:
+                render.clearLight(p)
         else:
             self.light=True
-            render.setLight(self.plnp)
+            for p in self.plnp:
+                render.setLight(p)
 
     def showHelp(self):
         """
@@ -75,8 +80,14 @@ class Planet(DirectObject):
         if(self.h == True):
             self.h=False
             self.tt.destroy()
+            self.tt = OnscreenText(text = "Help: h"
+                                   , pos = (-1.3, .95-.05), fg=(1,1,1,1),
+                       align = TextNode.ALeft, scale = .05, mayChange = 1)
+
         else:
             self.h=True
+            if(self.tt != None):
+                self.tt.destroy()
             self.tt = OnscreenText(text = "Kamera: Maus\nAnimation start/stop: space\nAnimation schneller/langsamer: Mausrad rauf/runter\nTextur an/aus: t\nPunktlichtquelle setzen: Control-Rechtsklick\nBeenden: Esc"
                                    , pos = (-1.3, .95-.05), fg=(1,1,1,1),
                        align = TextNode.ALeft, scale = .05, mayChange = 1)
