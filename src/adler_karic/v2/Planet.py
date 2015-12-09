@@ -16,13 +16,21 @@ import random, sys, os, math
 from Planetimpl import Planetimpl
 from abc import abstractmethod
 
-
+author = 'Philipp Adler'
+author = 'Adin Karic'
+version = '2015-11-29'
 class Planet(ShowBase):
     #Macro-like function used to reduce the amount to code needed to create the
     #on screen instructions
     help=False
     text=None
     def genLabelText(self, text, i):
+        """
+        Generiert und erzeugt die Helpseite fuer unser Solarsystem
+        :param text der angezeigte Text
+        :param i: Position
+        :return: die Bildschirmausgabe bzw. Helpseite
+        """
         self.help = not self.help
         if(self.text != None):
             self.text.destroy()
@@ -31,6 +39,10 @@ class Planet(ShowBase):
         return self.text
 
     def __init__(self, planeten):
+        """
+        Konstruktor hier wird alles gemanaget
+        :param planeten: Planeten die erzeugt werden sollen
+        """
         ShowBase.__init__(self)
         base.disableMouse()
 
@@ -103,6 +115,9 @@ class Planet(ShowBase):
 
 
     def cameraview(self):
+        """
+        Cameraview
+        """
         # Create picker Node and CollisionRay
         self.pickerNode = CollisionNode('mouseRay')
         self.pickerNP = camera.attachNewNode(self.pickerNode)
@@ -126,7 +141,11 @@ class Planet(ShowBase):
         self.displayCameraLongitudeText = self.genLabelText("Camera longitude : " + str(self.angleLongitudeDegrees) + " deg", 2)
         self.displayTargetNodePositionText = self.genLabelText("Target position : (" + str(self.targetNode.getX()) + "; " + str(self.targetNode.getY()) + "; " + str(self.targetNode.getZ()) + ")", 3)
         self.help = False """
+
     def listener(self):
+        """
+        Hier werden alle Listener definiert
+        """
         # Setup events for escape : exit from app
         self.accept("escape", sys.exit)
 
@@ -220,18 +239,26 @@ class Planet(ShowBase):
 
 
     def speedup(self):
+        """
+        Erhoeht die Geschwindigkeit der Planet
+        """
         for p in self.planeteninstance:
                 p.rotation *= 10
                 p.translation *= 10
 
     def speeddown(self):
+        """
+        Reduziert die Geschwindigkeit der Planet
+        """
         for p in self.planeteninstance:
                 p.rotation /= 10
                 p.translation /= 10
 
-    # Define a function to deal with camera picking collisions
-    # Must be called from the "mouse1" event
+
     def pickFromCamera(self):
+        """
+        Erlaubt es einen Planeten anzuklicke um diesen zu vergrössern
+        """
         mpos = base.mouseWatcherNode.getMouse()
         self.pickerRay.setFromLens(base.camNode, mpos.getX(), mpos.getY())
 
@@ -247,10 +274,14 @@ class Planet(ShowBase):
                 self.targetNode = pickedObj
                 self.targetSize = float(self.targetNode.getTag("targetSize"))
 
-    # Define a procedure to move the camera.
-    # In fact, never moves the camera, but instead the world origin
-    # But always keeps the camera oriented towards the world origin
     def moveOrbitalCameraTask(self, task):
+        """
+        Define a procedure to move the camera.
+        In fact, never moves the camera, but instead the world origin
+        But always keeps the camera oriented towards the world origin
+        :param task: Task
+        :return: gibt einen Task zurueck der wiederholt ausgefuehrt wird
+        """
         # Get mouse
         md = base.win.getPointer(0)
         x = md.getX()
@@ -330,6 +361,11 @@ class Planet(ShowBase):
 
     #Records the state of the keyboard and mouse
     def setKey(self, key, value):
+        """
+        Mappt den Key mit einer Value
+        :param key: Listener Key
+        :param value: Value des Keys
+        """
         # Store mouse position at the time of freeze
         if (key == "mouse3"):
             md = base.win.getPointer(0)
