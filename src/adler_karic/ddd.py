@@ -20,9 +20,15 @@ from abc import abstractmethod
 class MyApp(ShowBase):
     #Macro-like function used to reduce the amount to code needed to create the
     #on screen instructions
+    help=False
+    text=None
     def genLabelText(self, text, i):
-        return OnscreenText(text = text, pos = (-1.3, .95-.05*i), fg=(1,1,1,1),
+        self.help = not self.help
+        if(self.text != None):
+            self.text.destroy()
+        self.text= OnscreenText(text = text, pos = (-1.3, .95-.05*i), fg=(1,1,1,1),
                             align = TextNode.ALeft, scale = .05, mayChange = 1)
+        return self.text
 
     def __init__(self, planeten):
         ShowBase.__init__(self)
@@ -31,7 +37,7 @@ class MyApp(ShowBase):
         self.t = True
 
         # Pseudo-constants
-        self.titleString = "Panda3D: Orbital Camera v0.016"
+        self.titleString = "Beste SolarSystem ever."
         self.renderRatio = 1.0e-6
         self.degPerSecond = 60.0
         self.minCameraDistance = 4.0
@@ -114,11 +120,12 @@ class MyApp(ShowBase):
         # Set tags on Earth and Moon to be pickable
 
         # Add text to display the camera position
-        self.displayCameraDistanceText = self.genLabelText("Camera distance : " + str(self.cameraDistance * self.planeten[0][1]) + " m", 0)
+        self.text = OnscreenText(text = "Help: h", pos = (-1.3, .95-.05), fg=(1,1,1,1),align = TextNode.ALeft, scale = .05, mayChange = 1)
+        """ self.displayCameraDistanceText = self.genLabelText("Camera distance : " + str(self.cameraDistance * self.planeten[0][1]) + " m", 0)
         self.displayCameraLatitudeText = self.genLabelText("Camera latitude : " + str(self.angleLatitudeDegrees) + " deg", 1)
         self.displayCameraLongitudeText = self.genLabelText("Camera longitude : " + str(self.angleLongitudeDegrees) + " deg", 2)
         self.displayTargetNodePositionText = self.genLabelText("Target position : (" + str(self.targetNode.getX()) + "; " + str(self.targetNode.getY()) + "; " + str(self.targetNode.getZ()) + ")", 3)
-
+        self.help = False """
     def listener(self):
         # Setup events for escape : exit from app
         self.accept("escape", sys.exit)
@@ -129,6 +136,7 @@ class MyApp(ShowBase):
         self.accept("w", self.speedup)  # animation wird schneller
         self.accept("s", self.speeddown)  # animation wird langsamer
         self.accept("l", self.changeLight)  # punktlichtwuelle setzen
+        self.accept("h",self.showHelp) # Hilfe anzeigen lassen
 
         # Setup down events for arrow keys : rotating camera latitude and longitude
         self.accept("arrow_left", self.setKey, ["left",1])
@@ -189,6 +197,26 @@ class MyApp(ShowBase):
                 if p.setstartstop():
                     self.taskMgr.add(p.rotatePlanet, "rotate"+self.planeten[index][0], sort=1)
                     self.taskMgr.add(p.translatePlanet, "move"+self.planeten[index][0]+"Orbit", sort=1)
+
+    def showHelp(self):
+        """
+        Zeigt am Bildschirm die Bedienungsanleitung an oder nicht
+        """
+        if(self.help == True):
+            self.help=False
+            self.text.destroy()
+            self.text = OnscreenText(text = "Help: h"
+                                   , pos = (-1.3, .95-.05), fg=(1,1,1,1),
+                       align = TextNode.ALeft, scale = .05, mayChange = 1)
+
+        else:
+            self.help=True
+            if(self.text != None):
+                self.text.destroy()
+            self.text = OnscreenText(text = "Kamera: Maus\nAnimation start/stop: space\nAnimation schneller/langsamer: Mausrad rauf/runter\nTextur an/aus: t\nPunktlichtquelle setzen: Control-Rechtsklick\nBeenden: Esc"
+                                   , pos = (-1.3, .95-.05), fg=(1,1,1,1),
+                       align = TextNode.ALeft, scale = .05, mayChange = 1)
+
 
 
     def speedup(self):
@@ -292,10 +320,10 @@ class MyApp(ShowBase):
         self.camera.setHpr(self.angleLongitudeDegrees, self.angleLatitudeDegrees, 0)
 
         # Display camera position
-        self.displayCameraDistanceText.setText("Camera distance : " + str(self.cameraDistance * self.targetSize) + " m")
+        """self.displayCameraDistanceText.setText("Camera distance : " + str(self.cameraDistance * self.targetSize) + " m")
         self.displayCameraLatitudeText.setText("Camera latitude : " + str(self.angleLatitudeDegrees) + " deg")
         self.displayCameraLongitudeText.setText("Camera longitude : " + str(self.angleLongitudeDegrees) + " deg")
-        self.displayTargetNodePositionText.setText("Target position : (" + str(self.targetNode.getX()) + "; " + str(self.targetNode.getY()) + "; " + str(self.targetNode.getZ()) + ")")
+        self.displayTargetNodePositionText.setText("Target position : (" + str(self.targetNode.getX()) + "; " + str(self.targetNode.getY()) + "; " + str(self.targetNode.getZ()) + ")")"""
 
         # End task
         return Task.cont
