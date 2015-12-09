@@ -17,7 +17,7 @@ from Planetimpl import Planetimpl
 from abc import abstractmethod
 
 
-class MyApp(ShowBase):
+class Planet(ShowBase):
     #Macro-like function used to reduce the amount to code needed to create the
     #on screen instructions
     help=False
@@ -66,12 +66,12 @@ class MyApp(ShowBase):
         self.planeteninstance = []
         for p in planeten:
             if p[0] == "sun":
-                self.su = Planetimpl(self.worldOrigin, 8.37800000E+06, 0, self.renderRatio, "sun", 10, 10)
+                self.su = Planetimpl(self.worldOrigin, 8.37800000E+06, 0, self.renderRatio, "sun", 10, 0)
                 self.sun = self.su.impl()
                 self.planeteninstance.extend([self.su])
                 self.o = self.su
             else:
-                self.o = Planetimpl(self.worldOrigin, p[1], p[2], self.renderRatio, p[0], 10, 10)
+                self.o = Planetimpl(self.worldOrigin, p[1], p[2], self.renderRatio, p[0], p[3], p[4])
                 self.orbit = self.o.impl()
                 self.planeteninstance.extend([self.o])
             self.orbitOrbitVertexWriter = self.o.line()
@@ -213,7 +213,7 @@ class MyApp(ShowBase):
             self.help=True
             if(self.text != None):
                 self.text.destroy()
-            self.text = OnscreenText(text = "Kamera: Maus\nAnimation start/stop: space\nAnimation schneller/langsamer: Mausrad rauf/runter\nTextur an/aus: t\nPunktlichtquelle setzen: Control-Rechtsklick\nBeenden: Esc"
+            self.text = OnscreenText(text = "Kamera: Maus\nAnimation start/stop: space\nAnimation schneller/langsamer: w/d\nTextur an/aus: t\nPunktlichtquelle setzen: l\nBeenden: Esc"
                                    , pos = (-1.3, .95-.05), fg=(1,1,1,1),
                        align = TextNode.ALeft, scale = .05, mayChange = 1)
 
